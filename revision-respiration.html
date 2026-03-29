@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Révisions SVT — Module 5 : Respirer en bonne santé</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0f1923;
+  --card: #1a2733;
+  --card-hover: #223344;
+  --accent: #00e5a0;
+  --accent-dim: #00e5a022;
+  --accent-mid: #00e5a055;
+  --wrong: #ff5c6a;
+  --wrong-dim: #ff5c6a22;
+  --text: #e8f0f8;
+  --text-dim: #8899aa;
+  --gold: #ffd700;
+  --silver: #c0c0c0;
+  --bronze: #cd7f32;
+  --radius: 16px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+
+body {
+  font-family: 'Lexend', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+/* Animated background */
+body::before {
+  content: '';
+  position: fixed;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(ellipse at 30% 20%, #00e5a008 0%, transparent 50%),
+              radial-gradient(ellipse at 70% 80%, #005fff08 0%, transparent 50%);
+  animation: bgFloat 20s ease-in-out infinite alternate;
+  z-index: 0;
+  pointer-events: none;
+}
+@keyframes bgFloat {
+  0% { transform: translate(0,0) rotate(0deg); }
+  100% { transform: translate(-5%,3%) rotate(3deg); }
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px 16px 40px;
+}
+
+/* HEADER */
+.header {
+  text-align: center;
+  padding: 30px 0 20px;
+}
+.header-icon {
+  font-size: 48px;
+  margin-bottom: 8px;
+  display: block;
+  animation: breathe 3s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+.header h1 {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, var(--accent), #00b8ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.header p {
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-top: 4px;
+  font-weight: 300;
+}
+
+/* PROGRESS BAR */
+.progress-wrapper {
+  margin: 20px 0;
+  position: sticky;
+  top: 8px;
+  z-index: 10;
+  background: var(--bg);
+  padding: 8px 0 12px;
+  border-radius: var(--radius);
+}
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+.progress-bar {
+  height: 6px;
+  background: #ffffff10;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), #00b8ff);
+  border-radius: 3px;
+  transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  width: 0%;
+}
+
+/* QUESTION CARD */
+.question-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 24px 20px;
+  margin-bottom: 16px;
+  border: 1px solid #ffffff08;
+  animation: fadeUp 0.4s ease-out both;
+  position: relative;
+  overflow: hidden;
+}
+.question-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), #00b8ff);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.question-card.active::before { opacity: 1; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.q-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-dim);
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.q-text {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  margin-bottom: 18px;
+}
+
+/* OPTIONS */
+.options { display: flex; flex-direction: column; gap: 10px; }
+
+.option-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 16px;
+  background: #ffffff06;
+  border: 2px solid #ffffff10;
+  border-radius: 12px;
+  color: var(--text);
+  font-family: 'Lexend', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s;
+  line-height: 1.4;
+}
+.option-btn:active { transform: scale(0.98); }
+.option-btn:hover { border-color: #ffffff25; background: #ffffff0a; }
+
+.option-letter {
+  flex-shrink: 0;
+  width: 30px; height: 30px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+  background: #ffffff08;
+  color: var(--text-dim);
+  transition: all 0.2s;
+}
+
+.option-btn.correct {
+  border-color: var(--accent);
+  background: var(--accent-dim);
+  animation: popCorrect 0.3s ease-out;
+}
+.option-btn.correct .option-letter {
+  background: var(--accent);
+  color: var(--bg);
+}
+.option-btn.wrong {
+  border-color: var(--wrong);
+  background: var(--wrong-dim);
+  animation: shake 0.4s ease-out;
+}
+.option-btn.wrong .option-letter {
+  background: var(--wrong);
+  color: white;
+}
+.option-btn.reveal-correct {
+  border-color: var(--accent);
+  background: var(--accent-dim);
+}
+.option-btn.reveal-correct .option-letter {
+  background: var(--accent);
+  color: var(--bg);
+}
+.option-btn:disabled { cursor: default; opacity: 0.7; }
+.option-btn.correct:disabled, .option-btn.reveal-correct:disabled { opacity: 1; }
+
+@keyframes popCorrect {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+/* EXPLANATION */
+.explanation {
+  margin-top: 14px;
+  padding: 12px 14px;
+  background: #ffffff06;
+  border-radius: 10px;
+  border-left: 3px solid var(--accent);
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.6;
+  animation: fadeUp 0.3s ease-out;
+}
+.explanation strong { color: var(--accent); font-weight: 600; }
+
+/* NEXT BUTTON */
+.next-btn {
+  display: block;
+  width: 100%;
+  margin-top: 16px;
+  padding: 14px;
+  background: linear-gradient(135deg, var(--accent), #00b8ff);
+  color: var(--bg);
+  font-family: 'Lexend', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  animation: fadeUp 0.3s ease-out;
+}
+.next-btn:active { transform: scale(0.97); }
+.next-btn:hover { box-shadow: 0 4px 20px #00e5a044; }
+
+/* RESULTS SCREEN */
+.results {
+  text-align: center;
+  animation: fadeUp 0.5s ease-out;
+}
+.results-circle {
+  width: 160px; height: 160px;
+  margin: 20px auto;
+  position: relative;
+}
+.results-circle svg { transform: rotate(-90deg); }
+.results-circle .score-text {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 42px;
+  font-weight: 800;
+}
+.results-circle .score-label {
+  position: absolute;
+  top: 68%; left: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 12px;
+  color: var(--text-dim);
+  font-weight: 500;
+}
+
+.medal { font-size: 56px; margin: 10px 0; display: block; }
+.results-msg {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.results-sub {
+  font-size: 14px;
+  color: var(--text-dim);
+  font-weight: 300;
+  margin-bottom: 24px;
+}
+
+/* REVIEW SECTION */
+.review-section {
+  text-align: left;
+  margin-top: 24px;
+}
+.review-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--wrong);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.review-item {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  border-left: 3px solid var(--wrong);
+}
+.review-item .ri-q {
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.review-item .ri-a {
+  font-size: 12px;
+  color: var(--accent);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.perfect-section {
+  text-align: left;
+  margin-top: 24px;
+}
+.perfect-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.perfect-msg {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+
+/* THEME BADGES */
+.theme-summary {
+  margin-top: 20px;
+  text-align: left;
+}
+.theme-summary h3 {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+.theme-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.theme-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-dim);
+  width: 120px;
+  flex-shrink: 0;
+}
+.theme-track {
+  flex: 1;
+  height: 8px;
+  background: #ffffff10;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.theme-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 1s ease-out;
+}
+.theme-pct {
+  font-size: 12px;
+  font-weight: 700;
+  width: 40px;
+  text-align: right;
+}
+
+/* RESTART */
+.restart-btn {
+  display: block;
+  width: 100%;
+  margin-top: 24px;
+  padding: 14px;
+  background: linear-gradient(135deg, var(--accent), #00b8ff);
+  color: var(--bg);
+  font-family: 'Lexend', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.restart-btn:active { transform: scale(0.97); }
+
+.restart-btn.secondary {
+  background: transparent;
+  border: 2px solid #ffffff15;
+  color: var(--text);
+  margin-top: 10px;
+}
+
+/* START SCREEN */
+.start-screen { text-align: center; padding: 30px 0; }
+.start-screen h2 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.start-screen p {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+.topics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 24px;
+  text-align: left;
+}
+.topic-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  background: var(--card);
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-dim);
+  border: 1px solid #ffffff08;
+}
+.topic-chip span { font-size: 16px; }
+
+.start-btn {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, var(--accent), #00b8ff);
+  color: var(--bg);
+  font-family: 'Lexend', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.2s;
+  letter-spacing: 0.5px;
+}
+.start-btn:active { transform: scale(0.97); }
+
+.hidden { display: none !important; }
+
+/* History */
+.history-section { margin-top: 20px; text-align: left; }
+.history-section h3 {
+  font-size: 13px; font-weight: 600;
+  color: var(--text-dim); margin-bottom: 8px;
+}
+.history-item {
+  display: flex; justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: var(--card);
+  border-radius: 8px;
+  margin-bottom: 6px;
+  font-size: 12px;
+}
+.history-item .hi-date { color: var(--text-dim); }
+.history-item .hi-score { font-weight: 700; }
+
+/* Mode selector */
+.mode-selector {
+  display: flex; gap: 8px; margin-bottom: 20px;
+}
+.mode-btn {
+  flex: 1;
+  padding: 12px 8px;
+  background: var(--card);
+  border: 2px solid #ffffff10;
+  border-radius: 12px;
+  color: var(--text-dim);
+  font-family: 'Lexend', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+.mode-btn.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-dim);
+}
+.mode-btn span { display: block; font-size: 20px; margin-bottom: 4px; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <span class="header-icon">🫁</span>
+    <h1>Module 5 — Respirer en bonne santé</h1>
+    <p>SVT · Révisions interactives</p>
+  </div>
+
+  <!-- START SCREEN -->
+  <div id="startScreen" class="start-screen">
+    <h2>Prêt à réviser ?</h2>
+    <p>20 questions couvrant tout le chapitre.<br>Vise le score parfait !</p>
+    
+    <div class="topics-grid">
+      <div class="topic-chip"><span>🔬</span> Système respiratoire</div>
+      <div class="topic-chip"><span>💨</span> Mouvements respi.</div>
+      <div class="topic-chip"><span>🩸</span> Échanges gazeux</div>
+      <div class="topic-chip"><span>🐟</span> Autres organismes</div>
+      <div class="topic-chip"><span>🚬</span> Tabagisme</div>
+      <div class="topic-chip"><span>🏃</span> Limites / VO2 max</div>
+      <div class="topic-chip"><span>🫧</span> Alvéoles</div>
+      <div class="topic-chip"><span>🤒</span> Asthme</div>
+    </div>
+
+    <div class="mode-selector">
+      <button class="mode-btn active" onclick="setMode('full')" id="modeFull">
+        <span>📝</span> 20 questions
+      </button>
+      <button class="mode-btn" onclick="setMode('quick')" id="modeQuick">
+        <span>⚡</span> 10 questions
+      </button>
+      <button class="mode-btn" onclick="setMode('review')" id="modeReview">
+        <span>🎯</span> Erreurs seules
+      </button>
+    </div>
+
+    <button class="start-btn" onclick="startQuiz()">C'est parti 🚀</button>
+
+    <div id="historySection" class="history-section hidden">
+      <h3>📊 Historique des tentatives</h3>
+      <div id="historyList"></div>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quizScreen" class="hidden">
+    <div class="progress-wrapper">
+      <div class="progress-info">
+        <span id="progressLabel">Question 1/20</span>
+        <span id="scoreLabel">Score : 0</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+    <div id="questionArea"></div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="resultsScreen" class="hidden"></div>
+</div>
+
+<script>
+const ALL_QUESTIONS = [
+  // ===== SYSTÈME RESPIRATOIRE HUMAIN =====
+  {
+    theme: "Système respiratoire",
+    question: "Par quels organes l'air entre-t-il dans notre corps lors de l'inspiration ?",
+    options: [
+      "La cavité buccale (bouche) et la cavité nasale (nez)",
+      "Les bronches et les bronchioles",
+      "Les alvéoles pulmonaires",
+      "Le diaphragme et la trachée"
+    ],
+    correct: 0,
+    explanation: "L'air entre par la <strong>bouche</strong> (cavité buccale) et le <strong>nez</strong> (cavité nasale), puis descend vers la trachée."
+  },
+  {
+    theme: "Système respiratoire",
+    question: "Quel est le trajet de l'air dans le système respiratoire, dans le bon ordre ?",
+    options: [
+      "Nez/bouche → trachée → bronches → bronchioles → alvéoles",
+      "Nez/bouche → bronches → trachée → bronchioles → alvéoles",
+      "Trachée → nez/bouche → bronches → alvéoles → bronchioles",
+      "Alvéoles → bronchioles → bronches → trachée → nez/bouche"
+    ],
+    correct: 0,
+    explanation: "Le trajet est : <strong>cavités nasale/buccale → trachée → bronches → bronchioles → alvéoles pulmonaires</strong>."
+  },
+  {
+    theme: "Système respiratoire",
+    question: "Quel muscle est responsable des mouvements respiratoires ?",
+    options: [
+      "Le biceps",
+      "Le diaphragme",
+      "Le cœur",
+      "Les abdominaux"
+    ],
+    correct: 1,
+    explanation: "Le <strong>diaphragme</strong> se contracte (s'abaisse) à l'inspiration et se relâche (s'élève) à l'expiration."
+  },
+  // ===== MOUVEMENTS RESPIRATOIRES =====
+  {
+    theme: "Mouvements respiratoires",
+    question: "Que se passe-t-il au niveau du diaphragme lors de l'inspiration ?",
+    options: [
+      "Il se relâche et s'élève",
+      "Il se contracte et s'abaisse",
+      "Il reste immobile",
+      "Il se contracte et s'élève"
+    ],
+    correct: 1,
+    explanation: "<strong>Inspiration = contraction du diaphragme</strong> (il s'abaisse), ce qui augmente le volume de la cage thoracique et permet à l'air d'entrer."
+  },
+  {
+    theme: "Mouvements respiratoires",
+    question: "Lors d'une inspiration normale, quel volume d'air entre dans les poumons ?",
+    options: [
+      "Environ 0,5 L",
+      "Environ 3,7 L",
+      "Environ 5,6 L",
+      "Environ 1,6 L"
+    ],
+    correct: 1,
+    explanation: "En inspiration normale, il y a environ <strong>3,7 L</strong> d'air dans les poumons. En expiration normale, environ 3,2 L."
+  },
+  {
+    theme: "Mouvements respiratoires",
+    question: "Lors d'une inspiration forcée, combien d'air les poumons contiennent-ils environ ?",
+    options: [
+      "3,7 L",
+      "3,2 L",
+      "5,6 L",
+      "1,6 L"
+    ],
+    correct: 2,
+    explanation: "En inspiration forcée, les poumons contiennent environ <strong>5,6 L</strong> d'air (beaucoup plus qu'en inspiration normale)."
+  },
+  {
+    theme: "Mouvements respiratoires",
+    question: "Que peut-on conclure quand on inspire ?",
+    options: [
+      "Les poumons sont plus gonflés avec plus d'air",
+      "Les poumons sont moins gonflés avec moins d'air",
+      "Le volume d'air ne change pas",
+      "L'air sort du corps"
+    ],
+    correct: 0,
+    explanation: "Quand on inspire, les <strong>poumons sont plus gonflés</strong> car ils contiennent plus d'air. C'est l'inverse à l'expiration."
+  },
+  // ===== ÉCHANGES GAZEUX / ALVÉOLES =====
+  {
+    theme: "Échanges gazeux",
+    question: "Où se fait le passage du dioxygène de l'air vers le sang ?",
+    options: [
+      "Dans la trachée",
+      "Dans les bronches",
+      "Dans les alvéoles pulmonaires",
+      "Dans le nez"
+    ],
+    correct: 2,
+    explanation: "Le dioxygène traverse la <strong>paroi des alvéoles pulmonaires</strong> pour passer dans les capillaires sanguins et rejoindre le sang."
+  },
+  {
+    theme: "Échanges gazeux",
+    question: "Quelle est la forme des alvéoles pulmonaires ?",
+    options: [
+      "Des tubes longs et fins",
+      "Des petits sacs creux",
+      "Des plaques plates",
+      "Des cubes compacts"
+    ],
+    correct: 1,
+    explanation: "Les alvéoles pulmonaires ont la forme de <strong>petits sacs creux</strong>, ce qui offre une grande surface d'échange avec les capillaires sanguins."
+  },
+  {
+    theme: "Échanges gazeux",
+    question: "Que sont les capillaires ?",
+    options: [
+      "De petits os des poumons",
+      "Des vaisseaux sanguins très fins",
+      "Des muscles respiratoires",
+      "Des cellules de la trachée"
+    ],
+    correct: 1,
+    explanation: "Les <strong>capillaires</strong> sont de très petits vaisseaux sanguins qui entourent les alvéoles et permettent l'échange de gaz avec le sang."
+  },
+  {
+    theme: "Échanges gazeux",
+    question: "Quel est le trajet du dioxygène au niveau de l'alvéole ?",
+    options: [
+      "Sang → alvéole → air",
+      "Air → alvéole → capillaires sanguins",
+      "Capillaires → bronches → air",
+      "Air → trachée → sang directement"
+    ],
+    correct: 1,
+    explanation: "Le dioxygène passe de l'<strong>air</strong> dans les <strong>alvéoles</strong>, puis traverse la paroi fine vers les <strong>capillaires sanguins</strong>."
+  },
+  {
+    theme: "Échanges gazeux",
+    question: "Comment l'air ressort-il du corps ?",
+    options: [
+      "Par les alvéoles directement vers l'extérieur",
+      "En sens inverse : bronches, trachée, cavité buccale ou nasale",
+      "Par les pores de la peau",
+      "Il ne ressort pas, il est entièrement absorbé"
+    ],
+    correct: 1,
+    explanation: "L'air ressort en <strong>sens inverse</strong> : des alvéoles vers les bronchioles, bronches, trachée, puis cavité buccale ou nasale."
+  },
+  // ===== ASTHME =====
+  {
+    theme: "Asthme",
+    question: "Que se passe-t-il au niveau des bronchioles d'une personne asthmatique en crise ?",
+    options: [
+      "Elles se dilatent anormalement",
+      "Elles se resserrent à cause de l'inflammation",
+      "Elles disparaissent complètement",
+      "Elles produisent du dioxygène"
+    ],
+    correct: 1,
+    explanation: "Lors d'une crise d'asthme, les bronchioles sont <strong>fortement resserrées</strong> à cause de l'inflammation, ce qui réduit le passage de l'air vers les alvéoles."
+  },
+  // ===== AUTRES ORGANISMES =====
+  {
+    theme: "Autres organismes",
+    question: "Quel organe les poissons utilisent-ils pour respirer ?",
+    options: [
+      "Des poumons",
+      "Des branchies",
+      "Des trachées",
+      "Leur peau uniquement"
+    ],
+    correct: 1,
+    explanation: "Les poissons utilisent des <strong>branchies</strong> pour prélever le dioxygène dissous dans l'eau."
+  },
+  {
+    theme: "Autres organismes",
+    question: "Comment les insectes respirent-ils ?",
+    options: [
+      "Par des poumons miniatures",
+      "Par des branchies internes",
+      "Par un système de trachées qui débouchent directement sur les organes",
+      "Ils ne respirent pas"
+    ],
+    correct: 2,
+    explanation: "Les insectes possèdent des <strong>trachées</strong>, petits tubes qui amènent l'air directement aux organes sans passer par le sang."
+  },
+  // ===== TABAGISME =====
+  {
+    theme: "Tabagisme",
+    question: "Quelle substance contenue dans la cigarette rend dépendant ?",
+    options: [
+      "Le goudron",
+      "La nicotine",
+      "Le monoxyde de carbone",
+      "Le dioxygène"
+    ],
+    correct: 1,
+    explanation: "La <strong>nicotine</strong> est la substance qui crée la dépendance. Elle affecte le cerveau et donne envie de fumer encore et toujours plus."
+  },
+  {
+    theme: "Tabagisme",
+    question: "Quel effet les goudrons de la cigarette ont-ils sur les poumons ?",
+    options: [
+      "Ils les rendent plus élastiques",
+      "Ils tapissent les alvéoles, les rendant moins souples et réduisant les échanges de gaz",
+      "Ils augmentent la capacité respiratoire",
+      "Ils n'ont aucun effet sur les poumons"
+    ],
+    correct: 1,
+    explanation: "Les <strong>goudrons tapissent les alvéoles</strong>, rendant les poumons moins souples et réduisant le passage du dioxygène vers le sang. Ils provoquent aussi des cancers."
+  },
+  {
+    theme: "Tabagisme",
+    question: "À quoi ressemble le poumon d'un fumeur comparé à celui d'un non-fumeur ?",
+    options: [
+      "Plus clair et plus gonflé",
+      "Plus sombre et plus abîmé",
+      "Exactement identique",
+      "Plus petit mais plus sain"
+    ],
+    correct: 1,
+    explanation: "Le poumon d'un fumeur est <strong>plus sombre et plus abîmé</strong>. L'air y circule moins bien et il y a moins d'oxygène dans le sang."
+  },
+  // ===== VO2 MAX / LIMITES =====
+  {
+    theme: "Limites de l'organisme",
+    question: "Que mesure la VO2 max ?",
+    options: [
+      "La quantité maximale de CO2 rejetée",
+      "La consommation maximale de dioxygène lors d'un effort",
+      "Le volume total des poumons",
+      "La vitesse maximale de course"
+    ],
+    correct: 1,
+    explanation: "La <strong>VO2 max</strong> mesure la quantité maximale de dioxygène que l'organisme peut consommer pendant un effort. Plus elle est élevée, meilleure est la condition physique."
+  },
+  {
+    theme: "Limites de l'organisme",
+    question: "À entraînement identique, comment la VO2 max d'une femme se compare-t-elle à celle d'un homme ?",
+    options: [
+      "Elle est identique",
+      "Elle est 10 à 20 % plus basse",
+      "Elle est 10 à 20 % plus haute",
+      "Elle est deux fois plus élevée"
+    ],
+    correct: 1,
+    explanation: "À entraînement identique, une femme a une VO2 max <strong>10 à 20 % plus basse</strong> que celle d'un homme."
+  }
+];
+
+let questions = [];
+let current = 0;
+let score = 0;
+let answers = [];
+let mode = 'full';
+let missedQuestionIds = JSON.parse(localStorage.getItem('svt_missed') || '[]');
+
+function setMode(m) {
+  mode = m;
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+  if(m === 'full') document.getElementById('modeFull').classList.add('active');
+  if(m === 'quick') document.getElementById('modeQuick').classList.add('active');
+  if(m === 'review') document.getElementById('modeReview').classList.add('active');
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for(let i = a.length-1; i > 0; i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function startQuiz() {
+  if(mode === 'review') {
+    if(missedQuestionIds.length === 0) {
+      questions = shuffle(ALL_QUESTIONS).slice(0, 10);
+    } else {
+      questions = shuffle(ALL_QUESTIONS.filter((_, i) => missedQuestionIds.includes(i)));
+      if(questions.length < 3) questions = shuffle(ALL_QUESTIONS).slice(0, 10);
+    }
+  } else if(mode === 'quick') {
+    questions = shuffle(ALL_QUESTIONS).slice(0, 10);
+  } else {
+    questions = shuffle(ALL_QUESTIONS);
+  }
+  
+  current = 0;
+  score = 0;
+  answers = [];
+  
+  document.getElementById('startScreen').classList.add('hidden');
+  document.getElementById('resultsScreen').classList.add('hidden');
+  document.getElementById('quizScreen').classList.remove('hidden');
+  
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = questions[current];
+  const total = questions.length;
+  
+  document.getElementById('progressLabel').textContent = `Question ${current+1}/${total}`;
+  document.getElementById('scoreLabel').textContent = `Score : ${score}`;
+  document.getElementById('progressFill').style.width = `${((current)/total)*100}%`;
+  
+  const letters = ['A','B','C','D'];
+  let html = `
+    <div class="question-card active" style="animation-delay:0.05s">
+      <div class="q-badge">🏷️ ${q.theme}</div>
+      <div class="q-text">${q.question}</div>
+      <div class="options">
+        ${q.options.map((opt, i) => `
+          <button class="option-btn" onclick="answer(${i})" id="opt${i}">
+            <span class="option-letter">${letters[i]}</span>
+            <span>${opt}</span>
+          </button>
+        `).join('')}
+      </div>
+      <div id="feedback"></div>
+    </div>
+  `;
+  
+  document.getElementById('questionArea').innerHTML = html;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function answer(idx) {
+  const q = questions[current];
+  const btns = document.querySelectorAll('.option-btn');
+  btns.forEach(b => b.disabled = true);
+  
+  const isCorrect = idx === q.correct;
+  const originalIdx = ALL_QUESTIONS.indexOf(q);
+  
+  if(isCorrect) {
+    score++;
+    btns[idx].classList.add('correct');
+  } else {
+    btns[idx].classList.add('wrong');
+    btns[q.correct].classList.add('reveal-correct');
+  }
+  
+  answers.push({ question: q, userAnswer: idx, correct: isCorrect, originalIdx });
+  
+  document.getElementById('scoreLabel').textContent = `Score : ${score}`;
+  
+  const feedbackEl = document.getElementById('feedback');
+  feedbackEl.innerHTML = `
+    <div class="explanation">${q.explanation}</div>
+    <button class="next-btn" onclick="nextQuestion()">
+      ${current < questions.length - 1 ? 'Question suivante →' : 'Voir mes résultats 🏆'}
+    </button>
+  `;
+}
+
+function nextQuestion() {
+  current++;
+  if(current < questions.length) {
+    renderQuestion();
+  } else {
+    showResults();
+  }
+}
+
+function showResults() {
+  document.getElementById('quizScreen').classList.add('hidden');
+  document.getElementById('resultsScreen').classList.remove('hidden');
+  
+  const total = questions.length;
+  const pct = Math.round((score/total)*100);
+  const progressFill = document.getElementById('progressFill');
+  progressFill.style.width = '100%';
+  
+  // Save history
+  const history = JSON.parse(localStorage.getItem('svt_history') || '[]');
+  history.unshift({ date: new Date().toLocaleDateString('fr-FR'), score, total, pct, mode });
+  if(history.length > 10) history.pop();
+  localStorage.setItem('svt_history', JSON.stringify(history));
+  
+  // Save missed questions for review mode
+  const missed = answers.filter(a => !a.correct).map(a => a.originalIdx);
+  localStorage.setItem('svt_missed', JSON.stringify(missed));
+  missedQuestionIds = missed;
+  
+  // Medal & message
+  let medal, msg, sub;
+  if(pct === 100) { medal = '🏆'; msg = 'PARFAIT !'; sub = 'Tu maîtrises tout le chapitre, bravo !'; }
+  else if(pct >= 85) { medal = '🥇'; msg = 'Excellent !'; sub = 'Presque parfait, encore un petit effort !'; }
+  else if(pct >= 70) { medal = '🥈'; msg = 'Très bien !'; sub = 'Tu connais bien le cours, revois les points ci-dessous.'; }
+  else if(pct >= 50) { medal = '🥉'; msg = 'Pas mal !'; sub = 'Continue tes révisions, tu progresses !'; }
+  else { medal = '💪'; msg = 'Courage !'; sub = 'Relis bien ton cours et retente le quiz !'; }
+  
+  // Color
+  const circleColor = pct >= 85 ? 'var(--accent)' : pct >= 50 ? '#ffa500' : 'var(--wrong)';
+  const circumference = 2 * Math.PI * 68;
+  const offset = circumference - (pct / 100) * circumference;
+  
+  // Theme analysis
+  const themes = {};
+  answers.forEach(a => {
+    if(!themes[a.question.theme]) themes[a.question.theme] = { correct: 0, total: 0 };
+    themes[a.question.theme].total++;
+    if(a.correct) themes[a.question.theme].correct++;
+  });
+  
+  let themeHTML = '';
+  Object.entries(themes).forEach(([name, data]) => {
+    const tp = Math.round((data.correct/data.total)*100);
+    const color = tp >= 85 ? 'var(--accent)' : tp >= 50 ? '#ffa500' : 'var(--wrong)';
+    themeHTML += `
+      <div class="theme-bar">
+        <span class="theme-label">${name}</span>
+        <div class="theme-track"><div class="theme-fill" style="width:${tp}%;background:${color}"></div></div>
+        <span class="theme-pct" style="color:${color}">${tp}%</span>
+      </div>
+    `;
+  });
+  
+  // Wrong answers review
+  const wrong = answers.filter(a => !a.correct);
+  let reviewHTML = '';
+  if(wrong.length > 0) {
+    reviewHTML = `
+      <div class="review-section">
+        <div class="review-title">📌 Points à revoir (${wrong.length})</div>
+        ${wrong.map(w => `
+          <div class="review-item">
+            <div class="ri-q">${w.question.question}</div>
+            <div class="ri-a">✅ ${w.question.options[w.question.correct]}</div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  } else {
+    reviewHTML = `
+      <div class="perfect-section">
+        <div class="perfect-title">🌟 Aucune erreur !</div>
+        <p class="perfect-msg">Tu as tout bon. Essaie le mode ⚡ 10 questions aléatoires pour vérifier que tu retiens tout !</p>
+      </div>
+    `;
+  }
+  
+  document.getElementById('resultsScreen').innerHTML = `
+    <div class="results">
+      <div class="results-circle">
+        <svg width="160" height="160" viewBox="0 0 160 160">
+          <circle cx="80" cy="80" r="68" fill="none" stroke="#ffffff10" stroke-width="10"/>
+          <circle cx="80" cy="80" r="68" fill="none" stroke="${circleColor}" stroke-width="10"
+            stroke-dasharray="${circumference}" stroke-dashoffset="${offset}"
+            stroke-linecap="round" style="transition: stroke-dashoffset 1s ease-out"/>
+        </svg>
+        <span class="score-text" style="color:${circleColor}">${pct}%</span>
+        <span class="score-label">${score}/${total}</span>
+      </div>
+      <span class="medal">${medal}</span>
+      <div class="results-msg">${msg}</div>
+      <div class="results-sub">${sub}</div>
+      
+      <div class="theme-summary">
+        <h3>📊 Résultats par thème</h3>
+        ${themeHTML}
+      </div>
+      
+      ${reviewHTML}
+      
+      <button class="restart-btn" onclick="resetToStart()">Nouvelle tentative 🔄</button>
+      ${wrong.length > 0 ? '<button class="restart-btn secondary" onclick="retryWrong()">Retravailler mes erreurs 🎯</button>' : ''}
+    </div>
+  `;
+  
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function resetToStart() {
+  document.getElementById('resultsScreen').classList.add('hidden');
+  document.getElementById('quizScreen').classList.add('hidden');
+  document.getElementById('startScreen').classList.remove('hidden');
+  loadHistory();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function retryWrong() {
+  mode = 'review';
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('modeReview').classList.add('active');
+  document.getElementById('resultsScreen').classList.add('hidden');
+  startQuiz();
+}
+
+function loadHistory() {
+  const history = JSON.parse(localStorage.getItem('svt_history') || '[]');
+  const section = document.getElementById('historySection');
+  const list = document.getElementById('historyList');
+  
+  if(history.length === 0) {
+    section.classList.add('hidden');
+    return;
+  }
+  
+  section.classList.remove('hidden');
+  list.innerHTML = history.slice(0, 5).map(h => {
+    const modeLabel = h.mode === 'quick' ? '⚡' : h.mode === 'review' ? '🎯' : '📝';
+    const color = h.pct >= 85 ? 'var(--accent)' : h.pct >= 50 ? '#ffa500' : 'var(--wrong)';
+    return `
+      <div class="history-item">
+        <span class="hi-date">${modeLabel} ${h.date}</span>
+        <span class="hi-score" style="color:${color}">${h.score}/${h.total} (${h.pct}%)</span>
+      </div>
+    `;
+  }).join('');
+}
+
+// Init
+loadHistory();
+</script>
+
+</body>
+</html>
